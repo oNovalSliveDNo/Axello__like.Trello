@@ -90,5 +90,4 @@ delTask_btn = Button(
 delTask_btn.pack(fill=BOTH, expand=True, side=LEFT)
 
 if __name__ == '__main__':
-    # create mainloop
     ws.mainloop()
