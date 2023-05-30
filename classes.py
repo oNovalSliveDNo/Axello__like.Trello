@@ -72,5 +72,8 @@ class Application(Frame):
 
     def create_board_widgets(self):
         self.list_name_ent = Entry(width=32, fg='#000000')
+        self.new_list_bttn = Button(text = 'Создать', width=7, height=2)
+        self.bttn = Button(text = '123', width=6, height=2, bg='#000000')
 
         self.list_name_ent.grid(row=2, column=1, columnspan=3, sticky=NW, padx=[8, 0], pady=[10, 0])
+        self.new_list_bttn.grid(row = 2, column=1, sticky=NW)
