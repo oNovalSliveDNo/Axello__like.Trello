@@ -23,7 +23,10 @@ class Menu(Frame):
     def __init__(self, master):
         super(Menu, self).__init__(master)
         self.grid()
+        self.count = 0
         self.create_menu_widgets()
+        self.create_scnd_menu_widgets()
+
 
     def create_menu_widgets(self):
         self.home_bttn = Button(text='Домой', height=2, bg='#03273F', fg='#B1D2E7')
@@ -34,9 +37,9 @@ class Menu(Frame):
         self.search_bttn = Button(text='Поиск:', height=2, bg='#B1D2E7', fg='#03273F')
         self.search_ent = Entry(width=35, fg='#B1D2E7')
         self.notific_bttn = Button(text='Уведомления', height=2, bg='#B1D2E7', fg='#03273F')
-        self.theme_bttn = Button(text='Тема', height=2, bg='#B1D2E7', fg='#03273F')
+        self.theme_bttn = Button(text='Тема', height=2, bg='#B1D2E7', fg='#03273F', command=self.add_to_count)
         self.profile_bttn = Button(text='Профиль', height=2, bg='#B1D2E7', fg='#03273F')
-        self.exit_bttn = Button(text='Выход', height=2, bg='#03273F', fg='#B1D2E7')
+        self.exit_bttn = Button(text='Выход', height=2, bg='#03273F', fg='#B1D2E7', command=self.exit1)
 
         self.home_bttn.grid(row=0, column=0, padx=[2, 2], pady=[5, 5])
         self.recent_bttn.grid(row=0, column=1, padx=[2, 2], pady=[5, 5])
@@ -48,13 +51,6 @@ class Menu(Frame):
         self.theme_bttn.grid(row=0, column=8, padx=[2, 2], pady=[5, 5])
         self.profile_bttn.grid(row=0, column=9, padx=[2, 2], pady=[5, 5])
         self.exit_bttn.grid(row=0, column=10, padx=[2, 5], pady=[5, 5])
-
-
-class Scnd_menu(Frame):
-    def __init__(self, master):
-        super(Scnd_menu, self).__init__(master)
-        self.grid()
-        self.create_scnd_menu_widgets()
 
     def create_scnd_menu_widgets(self):
         self.name_lbl = Label(text='Какое-то название доски', height=2, bg='#9DB0FF', fg='#03273F')
@@ -81,9 +77,54 @@ class Scnd_menu(Frame):
         self.invite_bttn.grid(row=1, column=9, padx=[2, 2], pady=[5, 5])
         self.persons_bttn.grid(row=1, column=10, padx=[2, 2], pady=[5, 5])
 
+    def add_to_count(self):
+        self.count += 1
+        if (self.count % 2) == 0:
+            self.back_lbl = Label(bg='#8FA0E8', width=214, height=3)
+            self.back_lbl.grid(row=0, column=0, columnspan=11, sticky=NW)
+
+            self.back_lbl = Label(bg='#9DB0FF', width=214, height=3)
+            self.back_lbl.grid(row=1, column=0, columnspan=11, sticky=NW)
+
+            self.back_lbl = Label(bg='#9DB0FF', width=7, height=55)
+            self.back_lbl.grid(row=2, column=0, columnspan=11, sticky=NW)
+            self.create_menu_widgets()
+            self.create_scnd_menu_widgets()
+
+        if (self.count % 2) == 1:
+            self.back_lbl = Label(bg='#191970', width=214, height=3)
+            self.back_lbl.grid(row=0, column=0, columnspan=11, sticky=NW)
+
+            self.back_lbl = Label(bg='#0000CD', width=214, height=3)
+            self.back_lbl.grid(row=1, column=0, columnspan=11, sticky=NW)
+
+            self.back_lbl = Label(bg='#0000CD', width=7, height=55)
+            self.back_lbl.grid(row=2, column=0, columnspan=11, sticky=NW)
+            self.create_menu_widgets()
+            self.create_scnd_menu_widgets()
+
+    def exit1(self):
+        root.destroy()
+
 
 class Lists(Frame):
     def __init__(self, master, count_of_lists):
         super(Application, self).__init__(master)
         self.grid()
         self.create_list()
+
+if __name__ == '__main__':
+    # создание базового окна
+    root = Tk()
+    root.title('Axello')
+    root.geometry('1500x900+10+10')
+    root.resizable(False, False)
+    root.config(bg='#E0E0E0')
+
+    # создание рамки для размещения элементов
+    app = Back(root)
+    app = Menu(root)
+
+
+    # старт событийного цикла
+    root.mainloop()
