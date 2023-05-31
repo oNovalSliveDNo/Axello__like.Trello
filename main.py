@@ -1,6 +1,5 @@
 from tkinter import *
-import customtkinter
-from classes import Application, Back
+from classes import *
 
 if __name__ == '__main__':
 
@@ -9,11 +8,13 @@ if __name__ == '__main__':
     root.title('Axello')
     root.geometry('1500x900+10+10')
     root.resizable(False, False)
+    root.config(bg='#E0E0E0')
 
     # создание рамки для размещения элементов
     app = Back(root)
-    app = Application(root)
-    root.config(bg='#E0E0E0')
+    app = Menu(root)
+    app = Scnd_menu(root)
+
 
     # старт событийного цикла
     root.mainloop()
