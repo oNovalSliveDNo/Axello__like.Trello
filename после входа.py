@@ -21,10 +21,34 @@ class Back(Frame):
 class Application(Frame):
     def __init__(self, master):
         super(Application, self).__init__(master)
-        self.grid()
+        self.count = 0
         self.create_menu_widgets()
+        self.grid()
 
 
+    def add_to_count(self):
+        self.count+=1
+        if (self.count % 2) == 0:
+            self.back_lbl = Label(bg='#8FA0E8', width=214, height=3)
+            self.back_lbl.grid(row=0, column=0, columnspan=11, sticky=NW)
+
+            self.back_lbl = Label(bg='#9DB0FF', width=214, height=3)
+            self.back_lbl.grid(row=1, column=0, columnspan=11, sticky=NW)
+
+            self.back_lbl = Label(bg='#9DB0FF', width=7, height=55)
+            self.back_lbl.grid(row=2, column=0, columnspan=11, sticky=NW)
+            self.create_menu_widgets()
+        if (self.count % 2) == 1:
+            self.back_lbl = Label(bg='#191970', width=214, height=3)
+            self.back_lbl.grid(row=0, column=0, columnspan=11, sticky=NW)
+
+            self.back_lbl = Label(bg='#0000CD', width=214, height=3)
+            self.back_lbl.grid(row=1, column=0, columnspan=11, sticky=NW)
+
+            self.back_lbl = Label(bg='#0000CD', width=7, height=55)
+            self.back_lbl.grid(row=2, column=0, columnspan=11, sticky=NW)
+
+            self.create_menu_widgets()
     def create_menu_widgets(self):
         self.name1_lbl = Label(text='AXELLO',width=28, height=2, bg='#9DB0FF', fg='#03273F')
         self.menu1_bttn = Button(text='Меню', width=6, height=2, bg = '#F7DCBA', fg='#623803')
@@ -34,7 +58,7 @@ class Application(Frame):
         self.search1_bttn = Button(text='Поиск:', width=6, height=2,bg = '#B1D2E7', fg='#03273F')
         self.search1_ent = Entry(width=30,fg='#B1D2E7')
         self.notific1_bttn = Button(text='Уведомления', height=2,bg = '#B1D2E7', fg='#03273F')
-        self.theme1_bttn = Button(text='Тема', width=6, height=2,bg = '#B1D2E7', fg='#03273F')
+        self.theme1_bttn = Button(text='Тема', width=6, height=2,bg = '#B1D2E7', fg='#03273F', command=self.add_to_count)
         self.profile1_bttn = Button(text='Профиль', height=2,bg = '#B1D2E7', fg='#03273F')
 
         self.name1_lbl.grid(row=0, column=4, columnspan=3, padx=[2, 2], pady=[5, 5])
@@ -50,15 +74,20 @@ class Application(Frame):
 
 
 
+
+
 if __name__ == '__main__':
 
+    # создание базового окна
     root = Tk()
     root.title('Axello')
     root.geometry('1500x900+10+10')
     root.resizable(False, False)
 
+    # создание рамки для размещения элементов
     app = Back(root)
     app = Application(root)
     root.config(bg='#E0E0E0')
 
+    # старт событийного цикла
     root.mainloop()
