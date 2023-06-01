@@ -1,5 +1,5 @@
-from tkinter import *
 from classes import *
+
 
 if __name__ == '__main__':
 
@@ -11,10 +11,7 @@ if __name__ == '__main__':
     root.config(bg='#E0E0E0')
 
     # создание рамки для размещения элементов
-    app = Back(root)
     app = Menu(root)
-    app = Scnd_menu(root)
-
 
     # старт событийного цикла
     root.mainloop()
