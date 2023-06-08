@@ -1,12 +1,16 @@
 from tkinter import *
-from PIL import ImageTk, Image
 
 
-class Back(Frame):
+class Menu(Frame):
+
     def __init__(self, master):
-        super(Back, self).__init__(master)
+        super(Menu, self).__init__(master)
         self.grid()
+        self.count = 0
+        self.count_of_lists = 0
         self.create_back_menu()
+        self.create_menu_widgets()
+        self.create_scnd_menu_widgets()
 
     def create_back_menu(self):
         self.back_lbl = Label(bg='#8FA0E8', width=214, height=3)
@@ -17,16 +21,6 @@ class Back(Frame):
 
         self.back_lbl = Label(bg='#9DB0FF', width=7, height=55)
         self.back_lbl.grid(row=2, column=0, columnspan=11, sticky=NW)
-
-
-class Menu(Frame):
-    def __init__(self, master):
-        super(Menu, self).__init__(master)
-        self.grid()
-        self.count = 0
-        self.create_menu_widgets()
-        self.create_scnd_menu_widgets()
-
 
     def create_menu_widgets(self):
         self.home_bttn = Button(text='Домой', height=2, bg='#03273F', fg='#B1D2E7')
@@ -39,18 +33,18 @@ class Menu(Frame):
         self.notific_bttn = Button(text='Уведомления', height=2, bg='#B1D2E7', fg='#03273F')
         self.theme_bttn = Button(text='Тема', height=2, bg='#B1D2E7', fg='#03273F', command=self.add_to_count)
         self.profile_bttn = Button(text='Профиль', height=2, bg='#B1D2E7', fg='#03273F')
-        self.exit_bttn = Button(text='Выход', height=2, bg='#03273F', fg='#B1D2E7', command=self.exit1)
+        self.exit_bttn = Button(text='Выход', height=2, bg='#03273F', fg='#B1D2E7', command=self.quit)
 
-        self.home_bttn.grid(row=0, column=0, padx=[2, 2], pady=[5, 5])
-        self.recent_bttn.grid(row=0, column=1, padx=[2, 2], pady=[5, 5])
-        self.favourites_bttn.grid(row=0, column=2, padx=[2, 2], pady=[5, 5])
-        self.new_board_bttn.grid(row=0, column=3, padx=[2, 2], pady=[5, 5])
-        self.search_bttn.grid(row=0, column=5, padx=[0, 2], pady=[5, 5])
-        self.search_ent.grid(row=0, column=6, padx=[2, 2], pady=[5, 5])
-        self.notific_bttn.grid(row=0, column=7, padx=[2, 2], pady=[5, 5])
-        self.theme_bttn.grid(row=0, column=8, padx=[2, 2], pady=[5, 5])
-        self.profile_bttn.grid(row=0, column=9, padx=[2, 2], pady=[5, 5])
-        self.exit_bttn.grid(row=0, column=10, padx=[2, 5], pady=[5, 5])
+        self.home_bttn.place(x=5, y=5)
+        self.recent_bttn.place(x=60, y=5)
+        self.favourites_bttn.place(x=130, y=5)
+        self.new_board_bttn.place(x=220, y=5)
+        self.search_bttn.place(x=970, y=5)
+        self.search_ent.place(x=1020, y=15)
+        self.notific_bttn.place(x=1240, y=5)
+        self.theme_bttn.place(x=1335, y=5)
+        self.profile_bttn.place(x=1380, y=5)
+        self.exit_bttn.place(x=1450, y=5)
 
     def create_scnd_menu_widgets(self):
         self.name_lbl = Label(text='Какое-то название доски', height=2, bg='#9DB0FF', fg='#03273F')
@@ -58,7 +52,7 @@ class Menu(Frame):
         self.rename_board_bttn = Button(text='Переименовать', height=2, bg='#B1D2E7', fg='#03273F')
         self.rename_board_ent = Entry(width=35, fg='#B1D2E7')
         self.add_to_favour_bttn = Checkbutton(text='Избранное', height=2, bg='#B1D2E7', fg='#03273F')
-        self.new_list_bttn = Button(text='Создать список', height=2, bg='#B8D41D', fg='#515F0B')
+        self.new_list_bttn = Button(text='Создать список', height=2, bg='#B8D41D', fg='#515F0B', command=self.add_list)
         self.delete_list_bttn = Button(text='Удалить список', height=2, bg='#F08080', fg='#800000')
         self.left_bttn = Button(text='<=', height=2, bg='#F7DCBA', fg='#623803')
         self.right_bttn = Button(text='=>', height=2, bg='#F7DCBA', fg='#623803')
@@ -79,6 +73,10 @@ class Menu(Frame):
 
     def add_to_count(self):
         self.count += 1
+
+        if self.count == 10:
+            self.count = 0
+
         if (self.count % 2) == 0:
             self.back_lbl = Label(bg='#8FA0E8', width=214, height=3)
             self.back_lbl.grid(row=0, column=0, columnspan=11, sticky=NW)
@@ -88,10 +86,9 @@ class Menu(Frame):
 
             self.back_lbl = Label(bg='#9DB0FF', width=7, height=55)
             self.back_lbl.grid(row=2, column=0, columnspan=11, sticky=NW)
-            self.create_menu_widgets()
-            self.create_scnd_menu_widgets()
 
-        if (self.count % 2) == 1:
+
+        elif (self.count % 2) == 1:
             self.back_lbl = Label(bg='#191970', width=214, height=3)
             self.back_lbl.grid(row=0, column=0, columnspan=11, sticky=NW)
 
@@ -100,31 +97,40 @@ class Menu(Frame):
 
             self.back_lbl = Label(bg='#0000CD', width=7, height=55)
             self.back_lbl.grid(row=2, column=0, columnspan=11, sticky=NW)
-            self.create_menu_widgets()
-            self.create_scnd_menu_widgets()
 
-    def exit1(self):
-        root.destroy()
+        self.create_menu_widgets()
+        self.create_scnd_menu_widgets()
 
+    def add_list(self):
 
-class Lists(Frame):
-    def __init__(self, master, count_of_lists):
-        super(Application, self).__init__(master)
-        self.grid()
-        self.create_list()
+        self.count_of_lists += 1
+        self.width_of_list = 32
+        if self.count_of_lists > 6:
+            self.count_of_lists = 6
+        self.start_x = 62
+        self.languages = ["Python", "JavaScript", "C#", "Java", "Русский"]
 
-if __name__ == '__main__':
-    # создание базового окна
-    root = Tk()
-    root.title('Axello')
-    root.geometry('1500x900+10+10')
-    root.resizable(False, False)
-    root.config(bg='#E0E0E0')
+        # удаление выделенного элемента
+        def delete():
+            selection = languages_listbox.curselection()
+            # мы можем получить удаляемый элемент по индексу
+            # selected_language = languages_listbox.get(selection[0])
+            languages_listbox.delete(selection[0])
 
-    # создание рамки для размещения элементов
-    app = Back(root)
-    app = Menu(root)
+        # добавление нового элемента
+        def add():
+            new_language = language_entry.get()
+            languages_listbox.insert(0, new_language)
 
+        for list in range(self.count_of_lists):
+            self.list_bg_lbl = Label(height=51, width=self.width_of_list).place(x=self.start_x, y=110)
 
-    # старт событийного цикла
-    root.mainloop()
+            self.name_card_ent = Entry(width=25).place(x=self.start_x + 5, y=115)
+            self.add_name_card_bttn = Button(text='Добавить', bg='#B8D41D', fg='#515F0B', command=add).place(
+                x=self.start_x + 165, y=112)
+            self.listbox = Listbox(font='Times_New_Roman 15', listvariable=Variable(value=self.languages)).place(
+                x=self.start_x + 3, y=140)
+            self.delete_name_card_bttn = Button(text='Удалить', bg='#F08080', fg='#800000', command=delete).place(
+                x=self.start_x + 170, y=850)
+
+            self.start_x += int(self.width_of_list * 7.5)
