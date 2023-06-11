@@ -20,13 +20,16 @@ class Create_board(Frame):
         self.bname = StringVar(value='Новая доска')  # по умолчанию будет выбран элемент с value = 'Новая доска'
         self.btype = StringVar(value="Общественная")  # по умолчанию будет выбран элемент с value = 'Общественная'
 
-        lbl = Label(self, text='Введите название доски\n(например, Новая доска)')
+        back_lbl = Label(self, bg='#9DB0FF', width=21, height=6)
+        back_lbl.grid(row=0, column=0, rowspan=2, sticky=W)
+
+        lbl = Label(self, text='Введите название доски\n(например, Новая доска)', bg='#9DB0FF', fg='#03273F')
         lbl.grid(row=0, column=0)
 
         name_ent = Entry(self, width=30, textvariable=self.bname)
         name_ent.grid(row=0, column=1, columnspan=2, padx=[5, 5], pady=[5, 5])
 
-        lbl = Label(self, text='Укажите тип доски')
+        lbl = Label(self, text='Укажите тип доски', bg='#9DB0FF', fg='#03273F')
         lbl.grid(row=1, column=0, rowspan=2, padx=[5, 5], pady=[5, 5])
 
         public_rbtn = Radiobutton(self, text="Частная", value="Частная", variable=self.btype)
@@ -35,10 +38,10 @@ class Create_board(Frame):
         private_rbtn = Radiobutton(self, text="Общественная", value="Общественная", variable=self.btype)
         private_rbtn.grid(row=1, column=2, padx=[5, 5], pady=[5, 5])
 
-        ready_btn = Button(self, text='Создать', command=self.ready)
+        ready_btn = Button(self, text='Создать', command=self.ready, bg='#B8D41D', fg='#515F0B', )
         ready_btn.grid(row=3, column=0, sticky=W, padx=[5, 5], pady=[5, 5])
 
-        cancel_btn = Button(self, text='Отмена', command=self.master.destroy)
+        cancel_btn = Button(self, text='Отмена', command=self.master.destroy, bg='#F08080', fg='#800000')
         cancel_btn.grid(row=3, column=2, sticky=E, padx=[5, 5], pady=[5, 5])
 
     def ready(self):
@@ -67,16 +70,19 @@ class Rename_board(Frame):
     def get_name(self):
         self.nbname = StringVar(value=self.parent.name)  # по умолчанию будет value = <Текущее название доски>
 
-        lbl = Label(self, text='Введите название доски')
+        back_lbl = Label(self, bg='#9DB0FF', width=30, height=1)
+        back_lbl.grid(row=0, column=0, columnspan=2, sticky=W)
+
+        lbl = Label(self, text='Введите название доски', bg='#9DB0FF', fg='#03273F')
         lbl.grid(row=0, column=0, columnspan=2)
 
         name_ent = Entry(self, width=30, textvariable=self.nbname)
         name_ent.grid(row=1, column=0, columnspan=2, padx=[5, 5], pady=[5, 5])
 
-        ready_btn = Button(self, text='Переименовать', command=self.ready)
+        ready_btn = Button(self, text='Переименовать', command=self.ready, bg='#B8D41D', fg='#515F0B')
         ready_btn.grid(row=2, column=0, sticky=W, padx=[5, 5], pady=[5, 5])
 
-        cancel_btn = Button(self, text='Отмена', command=self.master.destroy)
+        cancel_btn = Button(self, text='Отмена', command=self.master.destroy, bg='#F08080', fg='#800000')
         cancel_btn.grid(row=2, column=1, sticky=E, padx=[5, 5], pady=[5, 5])
 
     def ready(self):
@@ -95,7 +101,7 @@ class Board():
         self.columns = []
 
     def create_board_widgets(self):
-        self.new_list_bttn = Button(text='  +  Добавить список', height=2, bg='#B8D41D', fg='#515F0B',
+        self.new_list_bttn = Button(text='  +  Добавить колонку', height=2, bg='#B8D41D', fg='#515F0B',
                                     command=self.create_column)
         self.new_list_bttn.place(x=self.start_x, y=110)
 

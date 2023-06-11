@@ -10,23 +10,26 @@ class Create_column(Frame):
         self.grid()
         self.get_name()
         self.master.title("Создать колонку")
-        self.master.geometry('+' + str(self.parent.start_x + 10) + '+150')
+        self.master.geometry('230x100+' + str(self.parent.start_x + 10) + '+150')
         self.master.resizable(False, False)
         self.focus_set()  # He забываем принудительно активизировать выведенное окно
 
     def get_name(self):
         self.cname = StringVar(value='Новая колонка')  # по умолчанию будет value = 'Новая колонка'
 
-        lbl = Label(self, text='Введите название колонки\n(например, Новая колонка)')
+        back_lbl = Label(self, bg='#9DB0FF', width=32, height=2)
+        back_lbl.grid(row=0, column=0, columnspan=2, sticky=W)
+
+        lbl = Label(self, text='Введите название колонки\n(например, Новая колонка)', bg='#9DB0FF', fg='#03273F')
         lbl.grid(row=0, column=0, columnspan=2)
 
-        name_ent = Entry(self, width=30, textvariable=self.cname)
+        name_ent = Entry(self, width=36, textvariable=self.cname)
         name_ent.grid(row=1, column=0, columnspan=2, padx=[5, 5], pady=[5, 5])
 
-        ready_btn = Button(self, text='Создать', command=self.ready)
+        ready_btn = Button(self, text='Создать', command=self.ready, bg='#B8D41D', fg='#515F0B')
         ready_btn.grid(row=2, column=0, sticky=W, padx=[5, 5], pady=[5, 5])
 
-        cancel_btn = Button(self, text='Отмена', command=self.master.destroy)
+        cancel_btn = Button(self, text='Отмена', command=self.master.destroy, bg='#F08080', fg='#800000')
         cancel_btn.grid(row=2, column=1, sticky=E, padx=[5, 5], pady=[5, 5])
 
     def ready(self):

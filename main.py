@@ -14,15 +14,15 @@ class Authorization(Frame):
         self.back_lbl.grid(row=0, column=0, columnspan=3)
 
         self.back_lbl = Label(bg='#9DB0FF', width=14, height=6)
-        self.back_lbl.grid(row=1, column=0, rowspan=2)
+        self.back_lbl.grid(row=1, column=0, rowspan=2, sticky=W)
 
         self.authorization_lbl = Label(text='АВТОРИЗАЦИЯ', font='15', width=14, height=2, bg='#9DB0FF', fg='#03273F')
         self.authorization_lbl.grid(row=0, column=0, columnspan=3)
 
-        self.log_lbl = Label(text="Логин:", width=11, height=2, bg='#9DB0FF', fg='#03273F')
+        self.log_lbl = Label(text="Логин:", height=2, bg='#9DB0FF', fg='#03273F')
         self.log_lbl.grid(row=1, column=0)
 
-        self.pas_lbl = Label(text="Пароль:", width=11, height=2, bg='#9DB0FF', fg='#03273F')
+        self.pas_lbl = Label(text="Пароль:", height=2, bg='#9DB0FF', fg='#03273F')
         self.pas_lbl.grid(row=2, column=0)
 
         self.login_ent = Entry(width=25, fg='#000000')
@@ -33,7 +33,7 @@ class Authorization(Frame):
 
         self.entry_bttn = Button(text="ВХОД", font='15', width=15, height=1, bg='#B1D2E7', fg='#03273F',
                                  command=self.check_log_pas)
-        self.entry_bttn.grid(row=3, column=0, columnspan=3)
+        self.entry_bttn.grid(row=3, column=0, columnspan=3, pady=10)
 
         self.error_lbl = Label(bg='#E0E0E0', fg='#FF0000')
         self.error_lbl.grid(row=4, column=0, columnspan=3)
@@ -77,7 +77,7 @@ if __name__ == '__main__':
     # создание окна авторизации
     window = Tk()
     window.title('Вход')
-    window.geometry('272x230+600+300')
+    window.geometry('272x250+600+300')
     window.resizable(False, False)
     window.config(bg='#E0E0E0')
 
