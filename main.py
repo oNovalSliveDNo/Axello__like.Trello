@@ -4,6 +4,7 @@ from cl_tasktracker import *
 class Authorization(Frame):
     def __init__(self, master):
         super(Authorization, self).__init__(master)
+
         self.grid()
         self.create_widgets()
 
@@ -40,15 +41,24 @@ class Authorization(Frame):
         if (self.login_ent.get() == '') or (self.password_ent.get() == ''):
             self.error_lbl.config(text='Вы не ввели логин или пароль!')
 
-        elif (len(self.login_ent.get()) < 6) or \
-                (len(self.login_ent.get()) > 20) or \
-                (len(self.password_ent.get()) < 6) or \
-                (len(self.password_ent.get()) > 20):
-            self.error_lbl.config(text='Неверный логин или пароль')
+        elif (len(self.login_ent.get()) < 4):
+            self.error_lbl.config(text='Логин должен состоять хотя бы из 4 символов')
+
+        elif (len(self.password_ent.get()) < 6):
+            self.error_lbl.config(text='Пароль должен состоять хотя бы из 6 символов')
+
+        elif (len(self.login_ent.get()) > 20):
+            self.error_lbl.config(text='Логин не должен превышать 20 символов')
+
+        elif (len(self.password_ent.get()) > 20):
+            self.error_lbl.config(text='Пароль не должен превышать 20 символов')
 
         else:
+            user = (self.login_ent.get(), self.password_ent.get())
+            users.append(tuple(user))
             window.destroy()
 
+            # создание базового окна
             root = Tk()
             root.title('Axello')
             root.geometry('1500x900+10+10')
@@ -56,14 +66,14 @@ class Authorization(Frame):
             root.config(bg='#E0E0E0')
 
             # создание рамки для размещения элементов
-            app = TaskTracker(root)
+            app = TaskTracker(master=root)
 
             # старт событийного цикла
             root.mainloop()
 
 
 if __name__ == '__main__':
-    # создание базового окна
+    # создание окна авторизации
     window = Tk()
     window.title('Вход')
     window.geometry('272x230+600+300')
@@ -71,7 +81,7 @@ if __name__ == '__main__':
     window.config(bg='#E0E0E0')
 
     # создание рамки для размещения элементов
-    aut = Authorization(window)
+    aut = Authorization(master=window)
 
     # старт событийного цикла
     window.mainloop()
