@@ -1,4 +1,5 @@
 from cl_tasktracker import *
+from database import *
 
 
 class Authorization(Frame):

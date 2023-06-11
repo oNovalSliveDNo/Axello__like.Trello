@@ -1,10 +1,5 @@
 from tkinter import *
-from database import *
-from cl_user import User
-from cl_create_board import Create_board
-from cl_board import Board
-from cl_column import Column
-from cl_card import Card
+from cl_board import *
 
 
 class TaskTracker(Frame):
@@ -58,5 +53,6 @@ class TaskTracker(Frame):
     def create_board(self):
         self.board_name = ''
         self.board_type = ''
-        #	Выводим вторичное окно, не забыв указать в параметре parent конструктора ссыпку на главное окно
+
+        # Выводим вторичное окно, не забыв указать в параметре parent конструктора ссыпку на главное окно
         Create_board(master=Toplevel(), parent=self)
