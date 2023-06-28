@@ -19,11 +19,10 @@ class Rename_card(Frame):
         self.master.title("Переименовать доску")
         self.master.geometry('+230+200')
         self.master.resizable(False, False)
+        self.focus_set()  # He забываем принудительно активизировать выведенное окно
 
         self.grid()
         self.get_name()
-
-        self.focus_set()  # He забываем принудительно активизировать выведенное окно
 
     def get_name(self):
         # ==============================VARIABLES======================================
@@ -59,7 +58,8 @@ class Rename_card(Frame):
 
         db.change_card_name(c_id, c_name)
 
-        self.parent.open_board(self.parent.flag)
+        partial(self.parent.open_board, int(self.parent.flag))
+        # self.parent.open_board(self.parent.flag)
 
 
 class Rename_column(Frame):
@@ -71,11 +71,10 @@ class Rename_column(Frame):
         self.master.title("Переименовать доску")
         self.master.geometry('+230+200')
         self.master.resizable(False, False)
+        self.focus_set()  # He забываем принудительно активизировать выведенное окно
 
         self.grid()
         self.get_name()
-
-        self.focus_set()  # He забываем принудительно активизировать выведенное окно
 
     def get_name(self):
         # ==============================VARIABLES======================================
@@ -123,11 +122,10 @@ class Create_column(Frame):
         self.master.title("Создать колонку")
         self.master.geometry('230x100+300+300')
         self.master.resizable(False, False)
+        self.focus_set()  # He забываем принудительно активизировать выведенное окно
 
         self.grid()
         self.get_name()
-
-        self.focus_set()  # He забываем принудительно активизировать выведенное окно
 
     def get_name(self):
         # ==============================VARIABLES======================================
@@ -174,11 +172,10 @@ class Rename_board(Frame):
         self.master.title("Переименовать доску")
         self.master.geometry('+230+200')
         self.master.resizable(False, False)
+        self.focus_set()  # He забываем принудительно активизировать выведенное окно
 
         self.grid()
         self.get_name()
-
-        self.focus_set()  # He забываем принудительно активизировать выведенное окно
 
     def get_name(self):
         # ==============================VARIABLES======================================
@@ -226,11 +223,10 @@ class Create_board(Frame):
         self.master.title("Создать доску")
         self.master.geometry('+230+100')
         self.master.resizable(False, False)
+        self.focus_set()  # He забываем принудительно активизировать выведенное окно
 
         self.grid()
         self.give_name_and_type()
-
-        self.focus_set()  # He забываем принудительно активизировать выведенное окно
 
     def give_name_and_type(self):
 
@@ -448,7 +444,8 @@ class TaskTracker(Frame):
 
                 if (board.board_id == self.id) and (len(board.columns) == 0):
                     self.bttn = Button(self.c, text='Новая колонка', font='Calibri 17', bg='#A9D18E', fg='#385723', width=21, height=18,
-                                       command=partial(self.create_column, flag)).place(x=start_x, y=65)
+                                       command=partial(self.create_column, flag))
+                    self.bttn.place(x=start_x, y=65)
 
                 elif (board.board_id == self.id) and (0 < len(board.columns) < 5):
                     count = 0
@@ -562,7 +559,7 @@ class TaskTracker(Frame):
         user_id = db.user_objects[-1].user_id
         db.insert_card(self.new_card, 1, column_id, user_id)
 
-        self.open_board(flag)
+        self.open_board(int(flag))
 
     def rename_card(self, cards, flag: int):
         selection = self.lst_column.curselection()
@@ -573,10 +570,12 @@ class TaskTracker(Frame):
         Rename_card(master=Toplevel(), parent=self)
 
     def delete_card(self, cards, flag: int):
+        self.flag = flag
         selection = self.lst_column.curselection()
         card_id = cards[selection[0]].card_id
         db.delete_card(card_id)
-        self.open_board(flag)
+
+        self.open_board(int(flag))
 
     # ==============================METHODS========================================
 
